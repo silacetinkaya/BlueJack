@@ -221,13 +221,13 @@ public class Game {
                 int move = sc.nextInt();
 
                 switch (move) {
-                    case STAND:
+                    case 1:
                         // Player chooses to stand, end their turn and wait for the opponent
                         Card.PrintBoardAndDeck(bDeck, BotBoard, PlayerBoard, game.getpDeck());
                         game.Players[1].setStand(false);
                         game.Players[0].setStand(true);
                         break;
-                    case PLAY_CARD:
+                    case 2:
                         Card.PrintBoardAndDeck(bDeck, BotBoard, PlayerBoard, game.getpDeck());
                         int choice = -1;
                         boolean validInput = false;
