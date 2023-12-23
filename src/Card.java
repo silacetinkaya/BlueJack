@@ -58,7 +58,7 @@ public class Card {
             }
         } else {
             // Handle the case where chosen is out of bounds
-            System.err.println("Invalid card selection.");
+            System.out.println("Invalid card selection.");
         }
     }
 
@@ -87,7 +87,7 @@ public class Card {
 
 
 
-    public static void AutoPlay(Card[] board, Card[] deck, int playerIndex) {
+    public static void AutoPlay(Card[] board, Card[] deck, int playerIndex) {//drow card function for bot and player from game deck
         Card x = null;
         for (int i = 0; i < deck.length; i++) {
             if (deck[i] != null) {
@@ -157,9 +157,9 @@ public class Card {
                 if (board[i].getSkill() == 0) {
                     sum = sum + board[i].getValue();
                 } else if (board[i].getSkill() == 1 && i > 0 && board[i - 1] != null) {
-                    sum = sum + (board[i - 1].getValue() * (-2));
+                    sum = sum + (board[i - 1].getValue() * (-2));//for flip card
                 } else if (board[i].getSkill() == 2 && i > 0 && board[i - 1] != null) {
-                    sum = sum + (board[i - 1].getValue() * 2);
+                    sum = sum + (board[i - 1].getValue() * 2);//for double card
                 }
             }
         }
@@ -201,14 +201,14 @@ public class Card {
             Card[] tempBoard = Arrays.copyOf(botBoard, botBoard.length);
 
             // Simulate drawing a card
-            AutoPlay(tempBoard, gameDeck, 0);
+            AutoPlay(tempBoard, gameDeck, 0);//AUTO PLAYDE DEĞİL BOTDECK İÇİNDEN SPECİAL PLAYLE ALINCAK HALE GETİR
             values[0] = CalculateBoard(tempBoard);
 
             // Simulate standing
             values[1] = bot;
 
             // Choose the action that maximizes the chances of winning the set
-            int bestMove = values[0] > values[1] ? 0 : 1;
+            int bestMove = values[0] > values[1] ? 0 : 1;//condition? situation1 :situation2
             SpecialPlay(botBoard, botDeck, bestMove);
         }
     }
