@@ -37,12 +37,13 @@ public class Player {
     public boolean isStand() {
         return stand;
     }
-
     public Player(String name, int set_Score, int point) {
-        this.Name = name;
         this.Set_Score = set_Score;
         this.Point = point;
+        this.Name = name;
         this.stand = false; // Initialize standing status to false
     }
 }
+
+
 
