@@ -218,16 +218,17 @@ public class Game {
                 System.out.println("1 - Stand");
                 System.out.println("2 - Play a card from your hand");
 
+
                 int move = sc.nextInt();
 
                 switch (move) {
-                    case 1:
+                    case STAND:
                         // Player chooses to stand, end their turn and wait for the opponent
                         Card.PrintBoardAndDeck(bDeck, BotBoard, PlayerBoard, game.getpDeck());
                         game.Players[1].setStand(false);
                         game.Players[0].setStand(true);
                         break;
-                    case 2:
+                    case PLAY_CARD:
                         Card.PrintBoardAndDeck(bDeck, BotBoard, PlayerBoard, game.getpDeck());
                         int choice = -1;
                         boolean validInput = false;
@@ -250,6 +251,7 @@ public class Game {
                         game.Players[1].setStand(false);
                         game.Players[0].setStand(true); // Playing a card ends the turn
                         break;
+
                     default:
                         System.out.println("Invalid move. Please choose again.");
                         continue;
