@@ -188,6 +188,8 @@ public class Card {
 
     public static void BotMove(Card[] botBoard, Card[] botDeck, Card[] gameDeck) {
         int bot = CalculateBoard(botBoard);
+        int closestScore=Integer.MAX_VALUE;
+        Card [] bestCombination=new Card[4];
 
         // Evaluate the risk of drawing a card
         boolean riskyMove = bot < 15;
@@ -201,15 +203,48 @@ public class Card {
             Card[] tempBoard = Arrays.copyOf(botBoard, botBoard.length);
 
             // Simulate drawing a card
-            AutoPlay(tempBoard, gameDeck, 0);//AUTO PLAYDE DEĞİL BOTDECK İÇİNDEN SPECİAL PLAYLE ALINCAK HALE GETİR
+            for (int i = 0; i < botDeck.length - 3; i++) {
+                // Create a combination of four cards
+                Card[] combination = {botDeck[i], botDeck[i + 1], botDeck[i + 2], botDeck[i + 3]};
+
+                // Add the combination to botBoard
+                addCardsToBoard(botBoard, combination);
+
+                // Recalculate the bot's total score
+                bot = CalculateBoard(botBoard);
+
+                // Check if the total score is closer to 20
+                if (Math.abs(bot - 20) < Math.abs(closestScore - 20)|| (Math.abs(bot - 20) == Math.abs(closestScore - 20) && bot <= 20)) {
+                    // Update the closest score and best combination
+                    closestScore = bot;
+                    bestCombination = Arrays.copyOf(combination, combination.length);
+                }
+
+
+            }
+            // If a suitable combination is found, play the move
+            if (bestCombination[0] != null) {
+                SpecialPlay(botBoard, bestCombination, 0);
+            }
+
             values[0] = CalculateBoard(tempBoard);
 
             // Simulate standing
             values[1] = bot;
+
 
             // Choose the action that maximizes the chances of winning the set
             int bestMove = values[0] > values[1] ? 0 : 1;//condition? situation1 :situation2
             SpecialPlay(botBoard, botDeck, bestMove);
         }
     }
+    private static void addCardsToBoard(Card[] botBoard, Card[] cards) {
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] != null) {
+                botBoard[i] = cards[i];
+            }
+        }
+    }
+
+
 }
